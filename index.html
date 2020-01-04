@@ -23,7 +23,7 @@ function tapped() {
 }
 async function getReview() {
     const id = document.getElementById("text-input").value;
-    const url = 'https://itunes.apple.com/jp/rss/customerreviews/id=' + id + '/sortBy=mostRecent/json';
+    const url = 'https://itunes.apple.com/jp/rss/customerreviews/id=' + id + '/json';
     console.log(url)
     const response = await fetch(url, { mode: 'cors' })
     const json = await response.json()
