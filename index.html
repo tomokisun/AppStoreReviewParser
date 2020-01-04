@@ -5,6 +5,7 @@
     </head>
     <body>
         <h1>AppStoreReviewParser</h1>
+        <p id="output-page-number"></p>
         <input id="text-input" placeholder="App idを入力">
         <p></p>
         <input type="button" value="Parse" onclick="tapped()">
@@ -14,24 +15,34 @@
 </html>
 
 <script>
+count = 1
 function tapped() {
     try {
-        getReview()
+        getReview(count)
+        count++
+        showPage()
     } catch (error) {
         console.log(error)
     }
 }
-async function getReview() {
+async function getReview(page) {
     const id = document.getElementById("text-input").value;
-    const url = 'https://itunes.apple.com/jp/rss/customerreviews/id=' + id + '/json';
+    const url = 'https://itunes.apple.com/jp/rss/customerreviews/page=' + page + '/id=' + id + '/json';
     console.log(url)
     const response = await fetch(url, { mode: 'cors' })
     const json = await response.json()
     json.feed.entry.forEach(function(value) {
-        console.log(value.content.label)
         result.innerHTML += value.content.label + "<br/><br/>"
     })
 }
+
+function showPage() {
+    const object = document.getElementById("output-page-number")
+    object.innerHTML = "next page = " + count
+}
+    
+showPage()
+
 </script>
 
 <style>
