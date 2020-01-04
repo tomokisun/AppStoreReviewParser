@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <body>
+      <h1>AppStoreReviewParser</h1>
+      <input id="text-input" placeholder="App idを入力">
+      <p></p>
+      <input type="button" value="Parse" onclick="send()">
+      <p></p>
+      <div id="result"></div>
+  </body>
+</html>
+
+<script>
+function createXMLHttpRequest() {
+  if (window.XMLHttpRequest) {
+    return new XMLHttpRequest()
+  } else if (window.ActiveXObject) {
+    try {
+      return new ActiveXObject("Msxml2.XMLHTTP")
+    } catch (e) {
+      try {
+        new ActiveXObject("Microsoft.XMLHTTP")
+      } catch (e2) {
+        return null
+      }
+    }
+  } else {
+    return null
+  }
+}
+
+function send() {
+    const id = document.getElementById("text-input").value;
+    const url = 'https://itunes.apple.com/jp/rss/customerreviews/id=' + id + '/sortBy=mostRecent/xml';
+    var request = createXMLHttpRequest();
+    request.open("GET", url, true);
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            var result = document.getElementById("result");
+            var xml = request.responseXML;
+            var nodes = xml.getElementsByTagName('content');            
+            Object.keys(nodes).forEach(function(key) {
+                const value = this[key];
+                let text = value.textContent + "<br/>"
+                result.innerHTML += text
+                console.log(value.nodeName)
+            }, nodes);
+        }
+    }
+    request.send("");
+}
+</script>
+
+<style>
+body {
+    text-align: center
+}
+</style>
