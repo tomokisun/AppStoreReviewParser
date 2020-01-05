@@ -2,16 +2,30 @@
 <html>
     <head>
         <title>AppStoreReviewParser</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- BootstrapのCSS読み込み -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- jQuery読み込み -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- BootstrapのJS読み込み -->
+        <script src="js/bootstrap.min.js"></script>
     </head>
     <body>
-        <h1>AppStoreReviewParser</h1>
-        <p id="output-page-number"></p>
-        <input id="text-input" placeholder="App idを入力">
-        <p></p>
-        <input type="button" value="Parse" onclick="tapped()">
-        <a type="button" id="downloadCSV">Download</a>
-        <p></p>
-        <div id="result"></div>
+        <div class="container">
+          <div class="row">
+            <h1>AppStoreReviewParser</h1>
+            <p id="output-page-number"></p>
+            <div class=col-xs-3>
+                <input class="form-control" id="ex1" type="text">
+            </div>
+            <p></p>
+            <input type="button" value="Parse" onclick="tapped()">
+            <a type="button" id="downloadCSV">Download</a>
+            <p></p>
+            <div id="result"></div>
+          </div>
+        </div>
     </body>
 </html>
 
