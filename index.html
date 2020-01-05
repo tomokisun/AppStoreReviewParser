@@ -10,6 +10,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- BootstrapのJS読み込み -->
         <script src="js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/pnotify@4.0.0/dist/umd/PNotify.js"></script>
+        <link href="https://unpkg.com/pnotify@4.0.0/dist/PNotifyBrightTheme.css" rel="stylesheet">
     </head>
     <body>
         <div class="container">
@@ -31,7 +33,7 @@ let contents = [["レビュー内容", "バージョン", "レーティング"]]
 function tapped() {
     if (document.getElementById("text-input").value == ''){
         // text-inputが空っぽだった場合の処理
-        alert('数値を入力してください')
+        PNotify.notice('IDが入力されていません。');
     } else {
         try {
             getReview(count)
@@ -71,7 +73,11 @@ function showPage() {
     const object = document.getElementById("output-page-number")
     object.innerHTML = "next page = " + count
 }
-    
 showPage()
 
 </script>
+<style type="text/css">
+  #target_msg_box{
+    display: none;
+  }
+</style>
