@@ -35,8 +35,7 @@ async function getReview(page) {
     const json = await response.json()
     json.feed.entry.forEach(function(value) {
         contents.push(value.content.label)
-        console.log(value) // これでJSONの全容が分かる
-        console.log(value.im:version.label) //ここが分からん
+        console.log(value["im:version"].label)
         result.innerHTML += value.content.label + "<br/><br/>"
     })
     makeCSV()
