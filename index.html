@@ -17,7 +17,7 @@
 
 <script>
 count = 1
-contents = ["レビュー内容"]
+let contents = [["レビュー内容", "バージョン", "レーティング"]]
 function tapped() {
     try {
         getReview(count)
@@ -34,8 +34,7 @@ async function getReview(page) {
     const response = await fetch(url, { mode: 'cors' })
     const json = await response.json()
     json.feed.entry.forEach(function(value) {
-        contents.push(value.content.label)
-        console.log(value["im:version"].label)
+        contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
         result.innerHTML += value.content.label + "<br/><br/>"
     })
     makeCSV()
@@ -43,7 +42,8 @@ async function getReview(page) {
 
 function makeCSV() {
     let csvData = "data:text/csv;charset=utf-8,"
-    contents.forEach(function(row) {
+    contents.forEach(function(rows) {
+        const row = rows.join(",")
         csvData += row + "\r\n"
     })
     const encodeUri = encodeURI(csvData)
