@@ -18,7 +18,7 @@
           <div class="input-group">
             <input class="form-control" type="text" id="text-input" placeholder="App idを入力">
             <button class="btn btn-primary center-block" type=button onclick=tapped()>表示！</button>&nbsp
-            <button class="btn btn-primary center-block" id="downloadCSV" type=button onclick=tapped()>Download</button>
+            <button class="btn btn-primary center-block" id="download-csv" type=button>Download</button>
           </div>
           <p></p>
           <div id="result"></div>
@@ -58,7 +58,7 @@ function makeCSV() {
         csvData += row + "\r\n"
     })
     const encodeUri = encodeURI(csvData)
-    const link = document.getElementById("downloadCSV")
+    const link = document.getElementById("download-csv")
     link.setAttribute("href", encodeUri)
     link.setAttribute("download", "csvdata.csv")
 }
