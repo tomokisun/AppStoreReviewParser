@@ -9,6 +9,7 @@
         <input id="text-input" placeholder="App idを入力">
         <p></p>
         <input type="button" value="Parse" onclick="tapped()">
+        <a type="button" id="downloadCSV">Download</a>
         <p></p>
         <div id="result"></div>
     </body>
@@ -16,6 +17,7 @@
 
 <script>
 count = 1
+contents = ["レビュー内容"]
 function tapped() {
     try {
         getReview(count)
@@ -32,8 +34,21 @@ async function getReview(page) {
     const response = await fetch(url, { mode: 'cors' })
     const json = await response.json()
     json.feed.entry.forEach(function(value) {
+        contents.push(value.content.label)
         result.innerHTML += value.content.label + "<br/><br/>"
     })
+    makeCSV()
+}
+
+function makeCSV() {
+    let csvData = "data:text/csv;charset=utf-8,"
+    contents.forEach(function(row) {
+        csvData += row + "\r\n"
+    })
+    const encodeUri = encodeURI(csvData)
+    const link = document.getElementById("downloadCSV")
+    link.setAttribute("href", encodeUri)
+    link.setAttribute("download", "csvdata.csv")
 }
 
 function showPage() {
