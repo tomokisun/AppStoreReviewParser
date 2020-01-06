@@ -21,11 +21,16 @@ async function getReview(page) {
     console.log(url)
     const response = await fetch(url, { mode: 'cors' })
     const json = await response.json()
-    json.feed.entry.forEach(function(value) {
-        contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
-        result.innerHTML += value.content.label + "<br/><br/>"
-    })
-    makeCSV()
+    const entry = json.feed.entry
+    if (entry === undefined) {
+        PNotify.notice('IDが無効です。');
+    } else {
+        entry.forEach(function(value) {
+            contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
+            result.innerHTML += value.content.label + "<br/><br/>"
+        })
+        makeCSV()
+    } 
 }
 
 function makeCSV() {
