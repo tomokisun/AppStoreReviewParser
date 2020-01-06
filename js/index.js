@@ -11,6 +11,7 @@ function tapped() {
             showPage()
         } catch (error) {
             console.log(error)
+            PNotify.notice('不明なエラーが発生しました。');
         }
     }
 }
