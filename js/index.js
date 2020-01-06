@@ -23,7 +23,7 @@ async function getReview(page) {
     const json = await response.json()
     const entry = json.feed.entry
     if (entry == undefined) {
-        PNotity.notice('IDが無効です。');
+        PNotify.notice('IDが無効です。');
         count = 1;
         exit;
     }
