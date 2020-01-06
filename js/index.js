@@ -1,18 +1,18 @@
 count = 1
 let contents = [["レビュー内容", "バージョン", "レーティング"]]
 function tapped() {
-    if (document.getElementById("text-input").value == ''){
-        // text-inputが空っぽだった場合の処理
+    if (document.getElementById('text-input').value == '') {
         PNotify.notice('IDが入力されていません。');
-    } else {
-        try {
-            getReview(count)
-            showPage()
-            count++
-        } catch (error) {
-            console.log(error)
-            PNotify.notice('不明なエラーが発生しました。');
-        }
+        count = 1
+        exit;
+    }
+    try {
+        getReview(count)
+        showPage()
+        count++
+    } catch (error) {
+        console.log(error)
+        PNotify.notice('不明なエラーが発生しました。')
     }
 }
 async function getReview(page) {
@@ -22,17 +22,16 @@ async function getReview(page) {
     const response = await fetch(url, { mode: 'cors' })
     const json = await response.json()
     const entry = json.feed.entry
-    if (entry === undefined) {
-        PNotify.notice('IDが無効です。');
-        // ちょっと無理やり感ある(めんどくさかった)
-        count = 1
-    } else {
-        entry.forEach(function(value) {
-            contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
-            result.innerHTML += value.content.label + "<br/><br/>"
-        })
-        makeCSV()
-    } 
+    if (entry == undefined) {
+        PNotity.notice('IDが無効です。');
+        count = 1;
+        exit;
+    }
+    entry.forEach(function(value) {
+        contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
+        result.innerHTML += value.content.label + "<br/><br/>"
+    })
+    makeCSV()
 }
 
 function makeCSV() {
