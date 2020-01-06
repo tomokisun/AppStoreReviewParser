@@ -1,4 +1,3 @@
-count = 1
 let contents = [["レビュー内容", "バージョン", "レーティング"]]
 function tapped() {
     if (document.getElementById('text-input').value == '') {
