@@ -1,3 +1,4 @@
+const showedPages = []
 let contents = [["レビュー内容", "バージョン", "レーティング"]]
 function tapped() {
     if (document.getElementById('text-input').value == '') {
@@ -8,7 +9,6 @@ function tapped() {
     }
     try {
         const objact = document.getElementById("output-page-number")
-        console.log(objact.value)
         getReview(objact.value)
         objact.value = Number(objact.value) + 1
     } catch (error) {
@@ -21,6 +21,7 @@ async function getReview(page) {
     const url = 'https://itunes.apple.com/jp/rss/customerreviews/page=' + page + '/id=' + id + '/json';
     console.log(url)
     const response = await fetch(url, { mode: 'cors' })
+    const count = document.getElementById("output-page-number").value
     try {
         const json = await response.json()
         const entry = json.feed.entry
@@ -29,11 +30,15 @@ async function getReview(page) {
             const objact = document.getElementById("output-page-number")
             objact.value = 1
             return
+        } else if (showedPages.includes(count)) {
+            PNotify.notice('このページは一度取得したため追加することができません。')
+            return
         }
         entry.forEach(function(value) {
             contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
             result.innerHTML += value.content.label + "<br/><br/>"
         })
+        showedPages.push(count)
         makeCSV()
     } catch (error) {
         console.log(error)
