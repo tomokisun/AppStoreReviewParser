@@ -4,7 +4,7 @@ function tapped() {
     if (document.getElementById('text-input').value == '') {
         PNotify.notice('IDが入力されていません。');
         count = 1
-        exit;
+        return
     }
     try {
         getReview(count)
@@ -25,7 +25,7 @@ async function getReview(page) {
     if (entry == undefined) {
         PNotify.notice('IDが無効です。');
         count = 1;
-        exit;
+        return
     }
     entry.forEach(function(value) {
         contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
