@@ -2,7 +2,7 @@ count = 1
 let contents = [["レビュー内容", "バージョン", "レーティング"]]
 function tapped() {
     if (document.getElementById('text-input').value == '') {
-        PNotify.notice('IDが入力されていません。');
+        PNotify.notice('IDが入力されていない、もしくはローマ字が含まれています。');
         const objact = document.getElementById("output-page-number")
         objact.value = 1
         return
@@ -27,7 +27,8 @@ async function getReview(page) {
         const entry = json.feed.entry
         if (entry == undefined) {
             PNotify.notice('IDが無効です。');
-            count = 1;
+            const objact = document.getElementById("output-page-number")
+            objact.value = 1
             return
         }
         entry.forEach(function(value) {
