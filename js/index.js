@@ -45,8 +45,3 @@ function makeCSV() {
     link.setAttribute("href", encodeUri)
     link.setAttribute("download", "csvdata.csv")
 }
-
-function showPage() {
-    const object = document.getElementById("output-page-number")
-    object.innerHTML = "current page = " + count
-}
