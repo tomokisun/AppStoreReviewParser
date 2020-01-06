@@ -48,5 +48,5 @@ function makeCSV() {
 
 function showPage() {
     const object = document.getElementById("output-page-number")
-    object.innerHTML = "next page = " + count
+    object.innerHTML = "current page = " + count
 }
