@@ -3,13 +3,15 @@ let contents = [["レビュー内容", "バージョン", "レーティング"]]
 function tapped() {
     if (document.getElementById('text-input').value == '') {
         PNotify.notice('IDが入力されていません。');
-        count = 1
+        const objact = document.getElementById("output-page-number")
+        objact.value = 1
         return
     }
     try {
-        getReview(count)
-        showPage()
-        count++
+        const objact = document.getElementById("output-page-number")
+        console.log(objact.value)
+        getReview(objact.value)
+        objact.value = Number(objact.value) + 1
     } catch (error) {
         console.log(error)
         PNotify.notice('不明なエラーが発生しました。')
