@@ -7,8 +7,8 @@ function tapped() {
     } else {
         try {
             getReview(count)
-            count++
             showPage()
+            count++
         } catch (error) {
             console.log(error)
             PNotify.notice('不明なエラーが発生しました。');
@@ -24,6 +24,8 @@ async function getReview(page) {
     const entry = json.feed.entry
     if (entry === undefined) {
         PNotify.notice('IDが無効です。');
+        // ちょっと無理やり感ある(めんどくさかった)
+        count = 1
     } else {
         entry.forEach(function(value) {
             contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
