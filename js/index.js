@@ -22,18 +22,23 @@ async function getReview(page) {
     const url = 'https://itunes.apple.com/jp/rss/customerreviews/page=' + page + '/id=' + id + '/json';
     console.log(url)
     const response = await fetch(url, { mode: 'cors' })
-    const json = await response.json()
-    const entry = json.feed.entry
-    if (entry == undefined) {
-        PNotify.notice('IDが無効です。');
-        count = 1;
-        return
+    try {
+        const json = await response.json()
+        const entry = json.feed.entry
+        if (entry == undefined) {
+            PNotify.notice('IDが無効です。');
+            count = 1;
+            return
+        }
+        entry.forEach(function(value) {
+            contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
+            result.innerHTML += value.content.label + "<br/><br/>"
+        })
+        makeCSV()
+    } catch (error) {
+        console.log(error)
+        PNotify.notice('なんらかのエラーが発生したため正常に取得できませんでした。')
     }
-    entry.forEach(function(value) {
-        contents.push([value.content.label, value['im:version'].label, value['im:rating'].label])
-        result.innerHTML += value.content.label + "<br/><br/>"
-    })
-    makeCSV()
 }
 
 function makeCSV() {
