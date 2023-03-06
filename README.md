@@ -1,7 +1,9 @@
-[AppStoreReviewParser](https://tomoki69386.github.io/AppStoreReviewParser)
+# AppStoreReviewParser
 
-AppStoreのレビューを取得して表示します
+check [here](https://tomokisun.github.io/AppStoreReviewParser/).
 
-CSVでもダウンロード出来るようになりました
+Retrieve and display AppStore reviews
 
-CSVダウンロードだとバージョンとレーティングが取得できます
+You can now also download them in CSV!
+
+CSV download allows you to get version and rating
